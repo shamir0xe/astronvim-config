@@ -82,5 +82,9 @@ return {
         },
       },
     },
+    {
+      "evansalter/vim-checklist",
+      event = "User AstroFile",
+    },
   },
 }

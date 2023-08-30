@@ -36,6 +36,7 @@ return {
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
+    ["<leader>bb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
     -- close the current buffer
     ["<leader>x"] = { function() require("astronvim.utils.buffer").close() end, desc = "Close buffer" },
     -- quick save
@@ -46,9 +47,16 @@ return {
       function() vim.lsp.buf.format(M.format_opts) end,
       desc = "Format buffer",
     },
-    ["<leader><Tab>"] = { function() require("astronvim.utils.buffer").prev() end, desc = "Previous buffer" },
+    ["<leader><Tab>"] = { "<cmd>b#<cr>", desc = "Previous buffer" },
     ["<leader>;"] = {
-      function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
+      function()
+        if vim.bo.filetype == "text" then
+          -- for text files do checkbox toggle
+          vim.cmd ":ChecklistToggleCheckbox"
+        else
+          require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
+        end
+      end,
       desc = "Toggle comment line",
     },
 
@@ -64,12 +72,18 @@ return {
     -- hit enter to put blank line
     ["<Enter>"] = { "o<ESC>" },
     ["<S-Enter>"] = { "O<ESC>" },
+    -- for the checklist plugin
+    ["<leader>c"] = { "<cmd>ChecklistToggleCheckbox<cr>", desc = "Toggle" },
   },
   t = {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
   },
   v = {
+    -- for the checklist plugin
+    -- ["<leader>ct"] = { "<cmd>ChecklistToggleCheckbox<cr>", desc = "Toggle" },
+    -- ["<leader>ce"] = { "<cmd>ChecklistEnableCheckbox<cr>", desc = "Enable" },
+    -- ["<leader>cd"] = { "<cmd>ChecklistDisableCheckbox<cr>", desc = "Disable" },
     -- Stay in indent mode
     ["<"] = { "<gv^" },
     [">"] = { ">gv^" },
