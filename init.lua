@@ -96,6 +96,11 @@ return {
         end
       end,
     })
+    -- set tabs to 4 spaces
+    vim.opt.tabstop = 4
+    vim.opt.shiftwidth = 4
+    vim.opt.expandtab = true
+    vim.bo.softtabstop = 4
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {

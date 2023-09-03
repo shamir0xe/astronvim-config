@@ -37,6 +37,9 @@ return {
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
     ["<leader>bb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+    ["<leader>bf"] = { "<cmd>only<cr>", desc = "Focus on this buffer" },
+    ["<leader>b%"] = { "<cmd>vsplit<cr>", desc = "split the buffer to right" },
+    ['<leader>b"'] = { "<cmd>split<cr>", desc = "split the buffer to bot" },
     -- close the current buffer
     ["<leader>x"] = { function() require("astronvim.utils.buffer").close() end, desc = "Close buffer" },
     -- quick save
@@ -44,7 +47,20 @@ return {
     ["<leader>a"] = { '<cmd>echo "0xe\'s space!" <cr>', desc = "0xe" },
     -- format the current buffer
     ["<leader>F"] = {
-      function() vim.lsp.buf.format(M.format_opts) end,
+      function()
+        -- vim.api.nvim_buf_create_user_command(
+        --   bufnr,
+        --   "Format",
+        --   function() vim.lsp.buf.format(M.format_opts) end,
+        --   { desc = "Format file with LSP" }
+        -- )
+        vim.lsp.buf.format({
+          -- filter = function(client) return client.name == "null-ls" end,
+          bufnr = vim.lsp.buf.bufnr,
+          format_on_save = { enabled = false },
+          disabled = {},
+        })
+      end,
       desc = "Format buffer",
     },
     ["<leader><Tab>"] = { "<cmd>b#<cr>", desc = "Previous buffer" },

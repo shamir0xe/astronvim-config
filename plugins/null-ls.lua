@@ -9,6 +9,7 @@ return {
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
     config.sources = {
+      -- null_ls.builtins.formatting.clang_format,
       null_ls.builtins.formatting.black,
       null_ls.builtins.diagnostics.mypy,
       null_ls.builtins.diagnostics.ruff,
