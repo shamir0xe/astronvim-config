@@ -22,7 +22,8 @@ return {
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = true,
+    virtual_text = false,
+    signs = true,
     underline = true,
   },
 
@@ -41,6 +42,8 @@ return {
       },
       disabled = { -- disable formatting capabilities for the listed language servers
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
+        "tsserver",
+        "eslint",
         -- "lua_ls",
       },
       timeout_ms = 1000, -- default format timeout
@@ -69,6 +72,15 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
+    local lspconfig = require "lspconfig"
+    lspconfig.tsserver.setup {
+      capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      on_attach = function(client) client.resolved_capabilities.document_formatting = false end,
+    }
+    lspconfig.eslint.setup {
+      capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      on_attach = function(client) client.resolved_capabilities.document_formatting = false end,
+    }
     -- autocommands
     -- remove {alpha} part in lua autocommands config file
     vim.api.nvim_create_autocmd("VimEnter", {

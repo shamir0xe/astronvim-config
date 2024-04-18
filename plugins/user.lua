@@ -86,5 +86,24 @@ return {
       "evansalter/vim-checklist",
       event = "User AstroFile",
     },
+    {
+      "mzlogin/vim-markdown-toc",
+      cmd = { "GenTocGFM", "GenTocRedcapet", "GenTocGitLab", "GenTocMarked" },
+      ft = { "markdown" },
+      build = function() vim.fn["mkdp#util#install"]() end,
+    },
+    -- ,
+    -- {
+    --   "pangloss/vim-javascript",
+    --   -- ft = { "javascript", "jsx", "ts" },
+    -- },
+    -- {
+    --   "mxw/vim-jsx",
+    --   -- ft = { "javascript", "jsx", "ts" },
+    -- },
+    -- {
+    --   "tyrannicaltoucan/vim-quantum",
+    --   -- ft = { "javascript", "jsx", "ts" },
+    -- },
   },
 }

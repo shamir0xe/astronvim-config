@@ -44,22 +44,34 @@ return {
     ["<leader>x"] = { function() require("astronvim.utils.buffer").close() end, desc = "Close buffer" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-    ["<leader>a"] = { '<cmd>echo "0xe\'s space!" <cr>', desc = "0xe" },
+    ["<leader>a"] = { name = "🐒 Scripts" },
+    ["<leader>ap"] = { "<cmd>PyrightSetPythonPath ./venv/bin/python3<cr>", desc = "🐍 Set Pyright env path" },
     -- format the current buffer
     ["<leader>F"] = {
       function()
+        vim.cmd ":Format"
         -- vim.api.nvim_buf_create_user_command(
         --   bufnr,
         --   "Format",
         --   function() vim.lsp.buf.format(M.format_opts) end,
         --   { desc = "Format file with LSP" }
         -- )
-        vim.lsp.buf.format({
-          -- filter = function(client) return client.name == "null-ls" end,
-          bufnr = vim.lsp.buf.bufnr,
-          format_on_save = { enabled = false },
-          disabled = {},
-        })
+        -- if vim.bo.filetype == "js" or vim.bo.filetype == "javascript" then
+        --   require("null-ls").builtins. {
+        --     bufnr = vim.lsp.buf.bufnr,
+        --     format_on_save = { enabled = false },
+        --   }
+        -- else
+        --
+        -- require("vim.lsp").buf.format(M.format_opts)
+        -- vim.lsp.buf.format {
+        --
+        --   -- filter = function(client) return client.name == "null-ls" end,
+        --   bufnr = vim.lsp.buf.bufnr,
+        --   format_on_save = { enabled = false },
+        --   disabled = {},
+        -- }
+        -- end
       end,
       desc = "Format buffer",
     },
@@ -90,6 +102,23 @@ return {
     ["<S-Enter>"] = { "O<ESC>" },
     -- for the checklist plugin
     ["<leader>c"] = { "<cmd>ChecklistToggleCheckbox<cr>", desc = "Toggle" },
+
+    -- ZenMode
+    ["<leader>z"] = { function() require("zen-mode").toggle() end, desc = "Toggle ZenMode" },
+
+    --lsp_signature
+    -- ["<C-j>"] = {
+    --   function() require("lsp_signature").toggle_float_win() end,
+    --   desc = "toggle signature",
+    --   noremap = true,
+    --   silent = true,
+    -- },
+  },
+  i = {
+    -- ["<C-Enter>"] = {
+    --   function() require("lsp_signature").toggle_float_win() end,
+    --   { silent = true, noremap = true, desc = "toggle signature" },
+    -- },
   },
   t = {
     -- setting a mapping to false will disable it
