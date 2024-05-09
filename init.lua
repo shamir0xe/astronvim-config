@@ -108,6 +108,15 @@ return {
         end
       end,
     })
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "sh",
+      callback = function()
+        vim.lsp.start {
+          name = "bash-language-server",
+          cmd = { "bash-language-server", "start" },
+        }
+      end,
+    })
     -- set tabs to 4 spaces
     vim.opt.tabstop = 4
     vim.opt.shiftwidth = 4
