@@ -36,7 +36,7 @@ return {
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
-    ["<leader>bb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+    ["<leader>bb"] = { function() require("telescope.builtin").buffers { sort_mru = true } end, desc = "Find buffers" },
     ["<leader>bf"] = { "<cmd>only<cr>", desc = "Focus on this buffer" },
     ["<leader>b%"] = { "<cmd>vsplit<cr>", desc = "split the buffer to right" },
     ['<leader>b"'] = { "<cmd>split<cr>", desc = "split the buffer to bot" },
